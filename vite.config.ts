@@ -9,6 +9,10 @@ export default defineConfig({
     //.env file
     'process.env': process.env,
   },
-
+  resolve: {
+    alias: {
+      '@': '/src',
+    },
+  },
   // server
 })
