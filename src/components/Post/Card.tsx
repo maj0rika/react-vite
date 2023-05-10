@@ -1,30 +1,30 @@
 import styled from 'styled-components'
 import { useState } from 'react'
-import { db } from '../firebase'
+import { db } from '@/firebaseConfig'
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore' // <-- not firebase/database
 
 // Post 컴포넌트 스타일링
 const StyledPost = styled.li`
-  border: 1px solid #ccc;
-  padding: 32px;
+  border: 2px solid ${({ theme }) => theme.colors.primary};
+  padding: 0 16px;
   border-radius: 8px;
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+  ${({ theme }) => theme.commons.boxShadow()};
   width: 100%;
   max-width: 400px;
   height: 100%;
   max-height: 400px;
-  display: flex;
-  flex-direction: column;
+  ${({ theme }) => theme.commons.flexColumn};
   align-items: start;
-  margin: 0 auto;
+  margin: 0;
   position: relative;
   h2 {
     font-size: 1.5rem;
+    color: ${({ theme }) => theme.colors.primary + theme.opacity['80']};
   }
   p {
     margin: 0;
 
-    &.createdAt {
+    &.created {
       font-size: 0.75rem;
       margin: 16px 0;
     }
@@ -42,8 +42,12 @@ const StyledPost = styled.li`
 `
 
 const StyledButton = styled.button`
-  border: 1px solid #ccc;
+  border: 1px solid ${({ theme }) => theme.colors.primary};
   display: flex;
+  color: ${({ theme }) => theme.colors.primary};
+  background-color: ${({ theme }) => theme.colors.primary + '33'};
+  height: fit-content;
+  font-size: ${({ theme }) => theme.fontSizes['sm']};
 `
 
 const StyledPostEdit = styled.div`
@@ -99,27 +103,29 @@ function Post({ title, content, createdAt, id }: { title: string; content: strin
 
   return (
     <StyledPost>
-      <div style={{ display: 'flex', gap: '5px', position: 'absolute', top: '10px', right: '10px' }}>
-        <StyledButton onClick={() => deletePost(id)}>{isDeleting ? '삭제 중...' : '삭제'}</StyledButton>
-        {/* <button onClick={() => setIsEditing(true)}>수정</button> */}
-        <StyledButton onClick={() => setIsEditing(true)}>{isEditing ? '수정 중...' : '수정'}</StyledButton>
-      </div>
       {/* 수정 버튼 추가 */}
       {isEditing ? (
         <StyledPostEdit>
           <input type="text" value={editedTitle} onChange={e => setEditedTitle(e.target.value)} />
           <textarea value={editedContent} onChange={e => setEditedContent(e.target.value)} />
-          <div style={{ display: 'flex', gap: '16px' }}>
+          <div style={{ display: 'flex', gap: '8px' }}>
             <button onClick={() => updatePost(id)}>저장</button>
             <button onClick={() => setIsEditing(false)}>취소</button>
           </div>
         </StyledPostEdit>
       ) : (
         <>
-          {title && <h2>{title}</h2>}
+          <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+            {title && <h2>{title}</h2>}
+            {/* theme 사용 */}
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <StyledButton onClick={() => deletePost(id)}>{isDeleting ? '삭제 중...' : '삭제'}</StyledButton>
+              <StyledButton onClick={() => setIsEditing(true)}>{isEditing ? '수정 중...' : '수정'}</StyledButton>
+            </div>
+          </div>
           {content && <p className="content">{content}</p>}
           {createdAt && (
-            <p className="createdAt">
+            <p className="created">
               <strong>Created at:</strong> <time>{createdAt}</time>
             </p>
           )}

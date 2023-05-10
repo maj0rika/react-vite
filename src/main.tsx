@@ -8,3 +8,4 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <App />
   </React.StrictMode>,
 )
+// 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
