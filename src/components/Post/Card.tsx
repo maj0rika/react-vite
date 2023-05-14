@@ -1,64 +1,80 @@
-import styled from 'styled-components'
+import tw from 'tailwind-styled-components'
 import { useState } from 'react'
 import { db } from '@/firebaseConfig'
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore' // <-- not firebase/database
 
-// Post 컴포넌트 스타일링
-const StyledPost = styled.li`
-  border: 2px solid ${({ theme }) => theme.colors.primary};
-  padding: 0 16px;
-  border-radius: 8px;
-  ${({ theme }) => theme.commons.boxShadow()};
-  width: 100%;
-  max-width: 400px;
-  height: 100%;
-  max-height: 400px;
-  ${({ theme }) => theme.commons.flexColumn};
-  align-items: start;
-  margin: 0;
-  position: relative;
-  h2 {
-    font-size: 1.5rem;
-    color: ${({ theme }) => theme.colors.primary + theme.opacity['80']};
-  }
-  p {
-    margin: 0;
+// const StyledPost = styled.li`
+//   border: 2px solid ${({ theme }) => theme.colors.primary};
+//   padding: 0 16px;
+//   border-radius: 8px;
+//   ${({ theme }) => theme.commons.boxShadow()};
+//   width: 100%;
+//   max-width: 400px;
+//   height: 100%;
+//   max-height: 400px;
+//   ${({ theme }) => theme.commons.flexColumn};
+//   align-items: start;
+//   margin: 0;
+//   position: relative;
+//   h2 {
+//     font-size: 1.5rem;
+//     color: ${({ theme }) => theme.colors.primary + theme.opacity['80']};
+//   }
+//   p {
+//     margin: 0;
 
-    &.created {
-      font-size: 0.75rem;
-      margin: 16px 0;
-    }
+//     &.created {
+//       font-size: 0.75rem;
+//       margin: 16px 0;
+//     }
 
-    &.content {
-      font-size: 1rem;
-    }
-  }
-  strong {
-    color: #333;
-  }
-  time {
-    color: #999;
-  }
+//     &.content {
+//       font-size: 1rem;
+//     }
+//   }
+//   strong {
+//     color: #333;
+//   }
+//   time {
+//     color: #999;
+//   }
+// `
+
+const StyledPost = tw.li`
+  border-2
+  border-primary
+  rounded-md
+  p-4
+  w-full
+  max-w-md
+  h-full
+  max-h-md
+  flex
+  flex-col
+  items-start
+  gap-4
+  relative
 `
 
-const StyledButton = styled.button`
-  border: 1px solid ${({ theme }) => theme.colors.primary};
-  display: flex;
-  color: ${({ theme }) => theme.colors.primary};
-  background-color: ${({ theme }) => theme.colors.primary + '33'};
-  height: fit-content;
-  font-size: ${({ theme }) => theme.fontSizes['sm']};
-`
+const StyledButton = tw.button`
+  border-2
+  rounded-md
+  px-2
+  border-primary
+  flex
+  items-center
+  justify-center
+  text-primary
+  bg-primary/30 
+  text-sm`
 
-const StyledPostEdit = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  width: 100%;
-  align-items: center;
-
-  margin: 0 auto;
-  padding: 16px;
+const StyledPostEdit = tw.div`
+  flex
+  flex-col
+  gap-4
+  w-full
+  items-center
+  p-4
 `
 
 function Post({ title, content, createdAt, id }: { title: string; content: string; createdAt: string; id: string }) {

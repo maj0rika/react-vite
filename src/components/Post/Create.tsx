@@ -1,64 +1,36 @@
-import styled from 'styled-components'
+import tw from 'tailwind-styled-components'
 import { useState } from 'react'
 import { db } from '@/firebaseConfig'
 import { collection, doc, setDoc } from 'firebase/firestore'
+import InputText from '@/components/Input/Text'
+import InputTextarea from '@/components/Input/Textarea'
 
-const StylePostCreate = styled.form`
-  ${({ theme }) => theme.commons.flexColumn};
-
-  align-items: center;
-  gap: 16px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 16px;
-  border: 1px solid ${({ theme }) => theme.colors.primary};
-  border-radius: 8px;
-
-  label {
-    ${({ theme }) => theme.commons.flexColumn};
-
-    gap: 8px;
-  }
-
-  input,
-  textarea {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-
-  textarea {
-    height: 150px;
-  }
+const StylePostCreate = tw.form`
+  flex
+  flex-col
+  items-center
+  gap-4
+  w-full
+  m-auto
+  p-4
+  border-2
+  rounded-md
+  border-primary
 `
 
-const StyledButton = styled.button`
-  background-color: #333;
-  color: #fff;
-  padding: 8px;
-  border-radius: 4px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #555;
-  }
+const StyledButton = tw.button`
+  bg-black
+  text-white
+  p-2
+  rounded-md
+  cursor-pointer
+  hover:bg-gray-700
 `
 
-const StyledMessage = styled.p`
-  margin-top: 8px;
-  font-size: 14px;
+const StyledMessage = tw.p`
+  mt-2
+  text-sm
 
-  &.error {
-    color: red;
-  }
-
-  &.success {
-    color: green;
-  }
-
-  &.loading {
-    color: blue;
-  }
 `
 
 function PostCreate() {
@@ -105,16 +77,16 @@ function PostCreate() {
     <StylePostCreate onSubmit={handleSubmit}>
       <label>
         Title
-        <input type="text" value={title} onChange={e => setTitle(e.target.value)} />
+        <InputText value={title} onChange={e => setTitle(e.target.value)} />
       </label>
       <label>
         Body
-        <textarea value={content} onChange={e => setContent(e.target.value)} />
+        <InputTextarea value={content} onChange={e => setContent(e.target.value)} />
       </label>
       <StyledButton type="submit">Create Post</StyledButton>
-      {loading && <StyledMessage className="loading">Loading...</StyledMessage>}
-      {error && <StyledMessage className="error">{error}</StyledMessage>}
-      {success && <StyledMessage className="success">{success}</StyledMessage>}
+      {loading && <StyledMessage className=" text-blue-500">Loading...</StyledMessage>}
+      {error && <StyledMessage className="text-red-500">{error}</StyledMessage>}
+      {success && <StyledMessage className="text-green-500">{success}</StyledMessage>}
     </StylePostCreate>
   )
 }

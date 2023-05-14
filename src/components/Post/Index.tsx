@@ -1,6 +1,6 @@
 import PostList from './List'
 import PostCard from './Card'
-import styled from 'styled-components'
+import tw from 'tailwind-styled-components'
 import Chance from 'chance'
 import { db } from '@/firebaseConfig'
 import { collection, query, onSnapshot, DocumentSnapshot, QuerySnapshot } from 'firebase/firestore'
@@ -13,9 +13,8 @@ interface Post {
   createdAt: string
 }
 
-//className loading style
-const StyledLoading = styled.p`
-  color: blue;
+const StyledLoading = tw.p`
+  color-blue-500
 `
 
 function Post() {

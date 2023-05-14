@@ -1,16 +1,14 @@
-import styled, { ThemeProvider } from 'styled-components'
 import PostCreate from './Create'
+import tw from 'tailwind-styled-components'
 
-import theme from '@/theme'
-
-const StyledPostList = styled.ul`
-  display: flex;
-  width: 100%;
-  flex-wrap: wrap;
-  gap: 16px;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
+const StyledPostList = tw.ul`
+  flex
+  w-full
+  flex-wrap
+  gap-4
+  items-center
+  justify-center
+  p-4
 `
 
 interface PostListProps {
@@ -19,12 +17,10 @@ interface PostListProps {
 
 function PostList({ children }: PostListProps) {
   return (
-    <ThemeProvider theme={theme}>
-      <StyledPostList>
-        <PostCreate />
-        {children}
-      </StyledPostList>
-    </ThemeProvider>
+    <StyledPostList>
+      <PostCreate />
+      {children}
+    </StyledPostList>
   )
 }
 

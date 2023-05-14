@@ -1,25 +1,22 @@
-import styled, { ThemeProvider } from 'styled-components'
+import tw from 'tailwind-styled-components'
 import Post from './components/Post'
-import theme from './theme'
 
-const StyledMain = styled.main`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 100%;
-  margin: 0 auto;
-  gap: 16px;
-  align-items: center;
-  padding: 16px;
+const StyledMain = tw.main`
+flex
+flex-wrap
+justify-center
+w-full
+m-auto
+gap-4 
+items-center
+p-4
 `
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <StyledMain>
-        <Post />
-      </StyledMain>
-    </ThemeProvider>
+    <StyledMain>
+      <Post />
+    </StyledMain>
   )
 }
 
