@@ -1,4 +1,3 @@
-import './App.css'
 import styled, { ThemeProvider } from 'styled-components'
 import Post from './components/Post'
 import theme from './theme'
