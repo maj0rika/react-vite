@@ -3,43 +3,6 @@ import { useState } from 'react'
 import { db } from '@/firebaseConfig'
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore' // <-- not firebase/database
 
-// const StyledPost = styled.li`
-//   border: 2px solid ${({ theme }) => theme.colors.primary};
-//   padding: 0 16px;
-//   border-radius: 8px;
-//   ${({ theme }) => theme.commons.boxShadow()};
-//   width: 100%;
-//   max-width: 400px;
-//   height: 100%;
-//   max-height: 400px;
-//   ${({ theme }) => theme.commons.flexColumn};
-//   align-items: start;
-//   margin: 0;
-//   position: relative;
-//   h2 {
-//     font-size: 1.5rem;
-//     color: ${({ theme }) => theme.colors.primary + theme.opacity['80']};
-//   }
-//   p {
-//     margin: 0;
-
-//     &.created {
-//       font-size: 0.75rem;
-//       margin: 16px 0;
-//     }
-
-//     &.content {
-//       font-size: 1rem;
-//     }
-//   }
-//   strong {
-//     color: #333;
-//   }
-//   time {
-//     color: #999;
-//   }
-// `
-
 const StyledPost = tw.li`
   border-2
   border-primary
