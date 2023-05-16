@@ -6,6 +6,7 @@ import Login from './components/Login'
 import { BrowserRouter, Route, Link, Routes } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 const Post = lazy(() => import('./components/Post'))
+import Signup from './components/Signup'
 
 const StyledMain = tw.main`
 flex
@@ -15,6 +16,15 @@ w-full
 m-auto
 gap-4 
 items-center
+py-15
+
+min-h-screen
+bg-gradient-to-tr
+from-purple-400
+from-0%
+to-primary/95
+to-60%
+
 
 `
 
@@ -28,9 +38,7 @@ function App() {
           <Suspense fallback={<div>ㅁㄴㅇㄴㅁㅇㄴㅁ ...</div>}>
             <Routes>
               <Route path="/login" element={<Login />} />
-              {/* <Route path="/signup">
-            <div>회원가입 페이지</div>
-          </Route> */}
+              <Route path="/signup" element={<Signup />} />
               <Route path="/post" element={<Post />} />
 
               <Route path="/" element={<div>메인 페이지</div>} />

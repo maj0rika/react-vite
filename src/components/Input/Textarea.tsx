@@ -4,6 +4,7 @@ import tw from 'tailwind-styled-components'
 interface TextareaProps {
   value: InputValue
   onChange: (e: InputChangeEvent) => void
+  className?: string
 }
 
 const StyleTextarea = tw.textarea`
@@ -13,8 +14,10 @@ const StyleTextarea = tw.textarea`
   p-2
 `
 
-const Textarea = ({ value, onChange }: TextareaProps) => {
-  return <StyleTextarea className="w-full" value={value} onChange={onChange} />
+const InputTextarea = ({ value, onChange, className }: TextareaProps) => {
+  return (
+    <StyleTextarea value={value} onChange={onChange} className={className} />
+  )
 }
 
-export default Textarea
+export default InputTextarea

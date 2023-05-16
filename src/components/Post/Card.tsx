@@ -4,9 +4,10 @@ import { db } from '@/firebaseConfig'
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore' // <-- not firebase/database
 
 const StyledPost = tw.li`
-  border-2
-  border-primary
+  bg-purple-700
+  text-white
   rounded-md
+  shadow-3xl
   p-4
   w-full
   max-w-md
@@ -23,11 +24,11 @@ const StyledButton = tw.button`
   border-2
   rounded-md
   px-2
-  border-primary
+  border-white
   flex
   items-center
   justify-center
-  text-primary
+  text-white
   bg-primary/30 
   text-sm`
 

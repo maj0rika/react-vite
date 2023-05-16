@@ -1,6 +1,8 @@
 import 'firebase/compat/auth'
 import { initializeApp } from 'firebase/app'
 import { getFirestore } from '@firebase/firestore'
+import { getAuth } from 'firebase/auth'
+
 const {
   VITE_API_KEY,
   VITE_AUTH_DOMAIN,
@@ -31,11 +33,10 @@ const firebaseConfig = {
   measurementId: VITE_MEASUREMENT_ID,
 }
 
-// initialize firebase app
 const app = initializeApp(firebaseConfig)
-console.log(app)
-// get firestore instance
+
+export const auth = getAuth(app)
+
 const db = getFirestore(app)
-console.log(db)
 
 export { db }

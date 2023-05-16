@@ -10,21 +10,22 @@ const StylePostCreate = tw.form`
   flex-col
   items-center
   gap-4
-  w-full
+  w-full 
   m-auto
   p-4
-  border-2
+  text-white
   rounded-md
-  border-primary
+bg-purple-700
 `
 
 const StyledButton = tw.button`
-  bg-black
+  bg-purple-900
   text-white
   p-2
   rounded-md
   cursor-pointer
-  hover:bg-gray-700
+  hover:bg-white
+  hover:text-purple-900
 `
 
 const StyledMessage = tw.p`
@@ -77,16 +78,28 @@ function PostCreate() {
     <StylePostCreate onSubmit={handleSubmit}>
       <label>
         Title
-        <InputText value={title} onChange={e => setTitle(e.target.value)} />
+        <InputText
+          className="w-full"
+          value={title}
+          onChange={e => setTitle(e.target.value)}
+        />
       </label>
       <label>
         Body
-        <InputTextarea value={content} onChange={e => setContent(e.target.value)} />
+        <InputTextarea
+          className="w-full"
+          value={content}
+          onChange={e => setContent(e.target.value)}
+        />
       </label>
       <StyledButton type="submit">Create Post</StyledButton>
-      {loading && <StyledMessage className=" text-blue-500">Loading...</StyledMessage>}
+      {loading && (
+        <StyledMessage className=" text-blue-500">Loading...</StyledMessage>
+      )}
       {error && <StyledMessage className="text-red-500">{error}</StyledMessage>}
-      {success && <StyledMessage className="text-green-500">{success}</StyledMessage>}
+      {success && (
+        <StyledMessage className="text-green-500">{success}</StyledMessage>
+      )}
     </StylePostCreate>
   )
 }
