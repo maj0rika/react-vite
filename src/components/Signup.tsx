@@ -68,6 +68,7 @@ const Signup = () => {
         <InputText
           className="w-full"
           value={email}
+          placeholder="이메일을 입력해주세요."
           onChange={e => {
             setEmail(e.target.value)
           }}
@@ -82,6 +83,7 @@ const Signup = () => {
         <InputText
           className="w-full"
           value={password}
+          placeholder="6~12자리"
           onChange={e => {
             setPassword(e.target.value)
           }}
@@ -96,6 +98,7 @@ const Signup = () => {
         <InputText
           className="w-full"
           value={passwordcheck}
+          placeholder="비밀번호를 다시 입력해주세요."
           onChange={e => {
             setPasswordcheck(e.target.value)
           }}
