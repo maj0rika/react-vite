@@ -10,3 +10,11 @@
 body {
   font-family: 'bmjua';
 }
+
+input[type='password'] {
+  font-family: 'roboto';
+}
+
+::placeholder {
+  font-family: 'bmjua';
+}

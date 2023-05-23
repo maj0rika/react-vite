@@ -8,6 +8,8 @@ export type InputChangeEvent = ChangeEvent<
 export type InputClassName = string
 export type Id = string
 export type validation = boolean
+export type type = 'text' | 'password'
+export type placeholder = string
 
 interface InputProps {
   value: InputValue
@@ -15,16 +17,15 @@ interface InputProps {
   className?: InputClassName
   id?: Id
   validation?: validation
+  type?: type
+  placeholder?: placeholder
 }
 
 const StyleInput = tw.input`
   border-2
   rounded-md
-  border-primary
   p-2
-
-  ${(props: InputProps) =>
-    props.value ? (props.validation ? '' : 'border-red-500') : ''}
+  text-black
 `
 
 const InputText = ({
@@ -33,13 +34,19 @@ const InputText = ({
   className,
   id,
   validation,
+  type = 'text',
+  placeholder,
 }: InputProps) => {
   return (
     <StyleInput
-      type="text"
+      type={type}
       value={value}
       onChange={onChange}
-      className={className}
+      placeholder={placeholder}
+      className={[
+        className,
+        value ? (validation ? 'border-purple-400' : 'border-red-500') : '',
+      ].join(' ')}
       id={id}
     />
   )
