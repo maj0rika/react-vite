@@ -13,7 +13,6 @@ const StyleHeader = tw.header`
   text-white
   font-bold
   text-xl
-
 `
 
 const StyledMenu = tw.div`
