@@ -1,4 +1,4 @@
-import { createSlice, Action } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction, Action } from '@reduxjs/toolkit'
 import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
@@ -15,15 +15,13 @@ export interface IMyInfo {
 
 export interface IMyState {
   myInfo?: IMyInfo
-  accessToken?: string
 }
 
 const initialAuthState: IMyState = {
   myInfo: undefined,
-  accessToken: undefined,
 }
 
-export const actionsTypes = {
+export const actionTypes = {
   SET_MY_INFO: 'my/SET_MY_INFO',
   LOGIN: 'my/LOGIN',
   LOGOUT: 'my/LOGOUT',
@@ -31,15 +29,14 @@ export const actionsTypes = {
 
 export const actions = {
   setMyInfo: (myInfo: IMyInfo) => ({
-    type: actionsTypes.SET_MY_INFO,
+    type: actionTypes.SET_MY_INFO,
     payload: myInfo,
   }),
-  login: (accessToken: string) => ({
-    type: actionsTypes.LOGIN,
-    payload: accessToken,
+  login: () => ({
+    type: actionTypes.LOGIN,
   }),
   logout: () => ({
-    type: actionsTypes.LOGOUT,
+    type: actionTypes.LOGOUT,
   }),
 }
 
@@ -47,27 +44,22 @@ const persistedReducer = persistReducer(
   {
     key: 'my',
     storage,
-    whitelist: ['myInfo', 'accessToken'],
+    whitelist: ['myInfo'],
   },
-  (state: IMyState = initialAuthState, action: ActionWithPayload<any>) => {
+  (state: IMyState = initialAuthState, action: PayloadAction<any>) => {
     switch (action.type) {
-      case actionsTypes.SET_MY_INFO:
-        const myInfo = action.payload?.myInfo
+      case actionTypes.SET_MY_INFO:
+        const myInfo = action.payload
         return {
           ...state,
           myInfo,
         }
-      case actionsTypes.LOGIN:
-        const accessToken = action.payload
-
+      case actionTypes.LOGIN:
         return {
-          accessToken,
-          myInfo: undefined,
+          ...state,
         }
-      case actionsTypes.LOGOUT:
-        return {
-          initialAuthState,
-        }
+      case actionTypes.LOGOUT:
+        return initialAuthState
       default:
         return state
     }
