@@ -1,5 +1,8 @@
 import tw from 'tailwind-styled-components'
 import { Link, useLocation } from 'react-router-dom'
+import my, { actions } from '@/store/my'
+import { useSelector, useDispatch } from 'react-redux'
+import { logout } from '@/auth'
 
 const StyleHeader = tw.header`
   fixed
@@ -24,39 +27,64 @@ const StyledMenu = tw.div`
 
 const header = () => {
   const location = useLocation()
+  const dispatch = useDispatch()
+  console.log(my)
+  const myInfo = useSelector((state: any) => state.my.myInfo)
+
+  console.log(myInfo)
 
   return (
     <StyleHeader>
       <Link to="/" className="cursor-pointer">
         마조리카 블로그
       </Link>
-      <StyledMenu>
-        <Link
-          to="/login"
-          //location.pathname === '/login' ? 'underline' : ''
-          className={`hover:underline
-          ${location.pathname === '/login' ? 'underline' : ''}
+
+      {myInfo?.email ? (
+        <StyledMenu>
+          <Link
+            to="/"
+            onClick={() => {
+              logout()
+              dispatch(actions.logout())
+            }}
+            className={`hover:underline
+          ${location.pathname === '/logout' ? 'underline' : ''}
           `}
-        >
-          로그인
-        </Link>
-        <Link
-          to="/signup"
-          className={`hover:underline
-          ${location.pathname === '/signup' ? 'underline' : ''}
-          `}
-        >
-          회원가입
-        </Link>
-        <Link
-          to="/post"
-          className={`hover:underline
-          ${location.pathname === '/post' ? 'underline' : ''}
-          `}
-        >
-          글쓰기
-        </Link>
-      </StyledMenu>
+          >
+            로그아웃
+          </Link>
+
+          <Link
+            to="/post"
+            className={`hover:underline
+        ${location.pathname === '/post' ? 'underline' : ''}
+        `}
+          >
+            글쓰기
+          </Link>
+        </StyledMenu>
+      ) : (
+        <StyledMenu>
+          {' '}
+          <Link
+            to="/login"
+            //location.pathname === '/login' ? 'underline' : ''
+            className={`hover:underline
+        ${location.pathname === '/login' ? 'underline' : ''}
+        `}
+          >
+            로그인
+          </Link>
+          <Link
+            to="/signup"
+            className={`hover:underline
+        ${location.pathname === '/signup' ? 'underline' : ''}
+        `}
+          >
+            회원가입
+          </Link>
+        </StyledMenu>
+      )}
     </StyleHeader>
   )
 }
