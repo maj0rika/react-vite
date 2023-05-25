@@ -1,10 +1,10 @@
 import tw from 'tailwind-styled-components'
 import InputText from '@/components/Input/Text'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '@/firebaseConfig'
+
 import { useState } from 'react'
 import Button from './Button'
 import { emailvalidate, passwordvalidate } from '@/validate'
+import { register } from '@/auth'
 
 const StyledMain = tw.main`
 flex
@@ -44,18 +44,24 @@ const Signup = () => {
       return
     }
 
-    await createUserWithEmailAndPassword(auth, email, password)
-      .then(userCredential => {
-        // Signed in
-        const user = userCredential.user
+    await register(email, password).then(() => {
+      alert('회원가입이 완료되었습니다.').then(() => {
+        window.location.href = '/login'
+      })
+    })
 
-        console.log(user)
-      })
-      .catch(error => {
-        const errorCode = error.code
-        const errorMessage = error.message
-        // ..
-      })
+    // await createUserWithEmailAndPassword(auth, email, password)
+    //   .then(userCredential => {
+    //     // Signed in
+    //     const user = userCredential.user
+
+    //     console.log(user)
+    //   })
+    //   .catch(error => {
+    //     const errorCode = error.code
+    //     const errorMessage = error.message
+    //     // ..
+    //   })
   }
 
   return (

@@ -1,11 +1,16 @@
 import tw from 'tailwind-styled-components'
-import { useState } from 'react'
-// import { useSelector, useDispatch } from 'react-redux'
-// import { increment, decrement } from '@/store/counterSlice'
+import { useCallback, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { actions } from '@/store/my'
 import InputText from '@/components/Input/Text'
-import { auth } from '@/firebaseConfig'
+import { auth as authConfig } from '@/firebaseConfig'
 import { emailvalidate, passwordvalidate } from '@/validate'
-import { signInWithEmailAndPassword } from 'firebase/auth'
+import {
+  setPersistence,
+  browserSessionPersistence,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+} from 'firebase/auth'
 import Button from './Button'
 
 const StyledMain = tw.main`
@@ -29,6 +34,8 @@ const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  const dispatch = useDispatch()
+
   const Loign = async () => {
     if (!emailvalidate(email)) {
       alert('이메일 형식이 올바르지 않습니다.')
@@ -40,17 +47,45 @@ const Login = () => {
       return
     }
 
-    await signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential: { user: any }) => {
-        // Signed in
-        const user = userCredential.user
-        console.log(user)
-        // ...
-      })
-      .catch(error => {
-        const errorCode = error.code
-        const errorMessage = error.message
-      })
+    setPersistence(authConfig, browserSessionPersistence).then(async () => {
+      await signInWithEmailAndPassword(authConfig, email, password)
+        .then(async (userCredential: { user: any }) => {
+          // Signed in
+          const user = userCredential.user
+          console.log(user)
+
+          onAuthStateChanged(authConfig, user => {
+            if (user) {
+              const uid = user.uid
+              console.log(uid)
+              // ...
+            } else {
+              // User is signed out
+              // ...
+            }
+          })
+
+          const token = await user.getIdToken()
+
+          dispatch(actions.login(token))
+
+          // useCallback(() => {
+          //   dispatch(
+          //     actions.setMyInfo({
+          //       email: user.email,
+          //       uid: user.uid,
+          //       displayName: user.displayName,
+          //       photoURL: user.photoURL,
+          //     }),
+          //   )
+          // }, [dispatch, user])
+        })
+        .catch(error => {
+          const errorCode = error.code
+          const errorMessage = error.message
+        })
+        .finally(() => {})
+    })
   }
 
   // const count = useSelector(
