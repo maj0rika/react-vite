@@ -3,11 +3,10 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
-  signInWithCustomToken,
   setPersistence,
   browserSessionPersistence,
 } from 'firebase/auth'
-import { IMyInfo } from '@/store/my'
+import { IMyInfo, actions } from '@/store/my'
 
 import { auth } from '@/firebaseConfig'
 
@@ -55,9 +54,9 @@ export const logout = async () => {
 
 export const onAuthChange = async (callback: any) => {
   console.log('onAuthChange')
-  onAuthStateChanged(auth, user => {
+  onAuthStateChanged(auth, async user => {
     console.log('onAuthStateChanged', user)
-    callback(user)
+    await callback(user)
   })
 }
 
@@ -68,9 +67,8 @@ export const getUser = () => {
 
 export const checkUser: any = async () => {
   console.log('checkUser')
-  const user = await getUser()
+  const user = getUser()
   if (user) {
-    console.log('user', user)
     const myInfo: IMyInfo = {
       // uid: user.uid,
       email: user.email || '',
@@ -83,7 +81,7 @@ export const checkUser: any = async () => {
           // uid: user.uid,
           email: user.email || '',
         }
-        console.log('myInfo', myInfo)
+
         return myInfo
       } else {
         return null
