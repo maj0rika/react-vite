@@ -1,6 +1,6 @@
 import tw from 'tailwind-styled-components'
 import { useCallback, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { actions } from '@/store/my'
 import InputText from '@/components/Input/Text'
 import { auth as authConfig } from '@/firebaseConfig'
@@ -12,6 +12,7 @@ import {
   onAuthStateChanged,
 } from 'firebase/auth'
 import Button from './Button'
+import { useNavigate } from 'react-router-dom'
 
 const StyledMain = tw.main`
 flex
@@ -35,6 +36,8 @@ const Login = () => {
   const [password, setPassword] = useState('')
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const myInfo = useSelector((state: any) => state.my.myInfo)
 
   const Loign = async () => {
     if (!emailvalidate(email)) {
@@ -53,6 +56,14 @@ const Login = () => {
           // Signed in
           const user = userCredential.user
           console.log(user)
+          dispatch(
+            actions.setMyInfo({
+              email: user.email,
+            }),
+          )
+          console.log('user', user)
+
+          console.log('myInfo', myInfo)
 
           onAuthStateChanged(authConfig, user => {
             if (user) {
@@ -65,9 +76,9 @@ const Login = () => {
             }
           })
 
-          const token = await user.getIdToken()
+          navigate('/')
 
-          dispatch(actions.login(token))
+          // dispatch(actions.login())
 
           // useCallback(() => {
           //   dispatch(
