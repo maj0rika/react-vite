@@ -38,7 +38,6 @@ const AuthInit: FC<PropsFromRedux> = (props: PropsFromRedux) => {
           const user = await checkUser()
 
           dispatch(props.setMyInfo(user))
-          navigate('/')
         }
       } catch (error) {
         console.error(error)
