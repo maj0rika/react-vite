@@ -30,7 +30,7 @@ const ChatGptExample = () => {
           headers: {
             'Content-Type': 'application/json',
             Authorization:
-              'Bearer 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', // Replace with your actual API key
+              'Bearer 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', // Replace with your actual API key
           },
           body: JSON.stringify(requestBody),
         },
