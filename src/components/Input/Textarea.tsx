@@ -12,11 +12,17 @@ const StyleTextarea = tw.textarea`
   rounded-md
   border-primary
   p-2
+  text-black
+
 `
 
 const InputTextarea = ({ value, onChange, className }: TextareaProps) => {
   return (
-    <StyleTextarea value={value} onChange={onChange} className={className} />
+    <StyleTextarea
+      value={value}
+      onChange={onChange}
+      className={[className, 'h-fit resize-none'].join(' ')}
+    />
   )
 }
 

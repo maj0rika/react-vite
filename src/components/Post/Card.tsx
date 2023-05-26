@@ -2,6 +2,8 @@ import tw from 'tailwind-styled-components'
 import { useState } from 'react'
 import { db } from '@/firebaseConfig'
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore' // <-- not firebase/database
+import InputText from '../Input/Text'
+import InputTextarea from '../Input/Textarea'
 
 const StyledPost = tw.li`
   bg-purple-700
@@ -41,7 +43,17 @@ const StyledPostEdit = tw.div`
   p-4
 `
 
-function Post({ title, content, createdAt, id }: { title: string; content: string; createdAt: string; id: string }) {
+function Post({
+  title,
+  content,
+  createdAt,
+  id,
+}: {
+  title: string
+  content: string
+  createdAt: string
+  id: string
+}) {
   const [isDeleting, setIsDeleting] = useState(false)
   const [isEditing, setIsEditing] = useState(false) // 수정 중 표시를 위한 상태값 추가
   const [editedTitle, setEditedTitle] = useState(title)
@@ -80,38 +92,65 @@ function Post({ title, content, createdAt, id }: { title: string; content: strin
       setIsEditing(false)
     }
   }
-
+  //수정 화면 모닳령식으로 변경하기.
   return (
     <StyledPost>
+      {' '}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          width: '100%',
+          alignItems: 'center',
+        }}
+      >
+        {!isEditing ? (
+          <>
+            {title && <h2>{title}</h2>}
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <StyledButton onClick={() => deletePost(id)}>
+                {isDeleting ? '삭제 중...' : '삭제'}
+              </StyledButton>
+              <StyledButton onClick={() => setIsEditing(true)}>
+                {isEditing ? '수정 중...' : '수정'}
+              </StyledButton>
+            </div>
+          </>
+        ) : (
+          <InputText
+            className="w-full"
+            value={editedTitle}
+            onChange={e => setEditedTitle(e.target.value)}
+          />
+        )}
+        {/* theme 사용 */}
+      </div>
       {/* 수정 버튼 추가 */}
-      {isEditing ? (
-        <StyledPostEdit>
-          <input type="text" value={editedTitle} onChange={e => setEditedTitle(e.target.value)} />
-          <textarea value={editedContent} onChange={e => setEditedContent(e.target.value)} />
-          <div style={{ display: 'flex', gap: '8px' }}>
+      <>
+        {!isEditing ? (
+          editedContent && <p className="content">{editedContent}</p>
+        ) : (
+          <InputTextarea
+            className="w-full"
+            value={editedContent}
+            onChange={e => setEditedContent(e.target.value)}
+          />
+        )}
+        {createdAt && (
+          <p className="created">
+            <strong>Created at:</strong> <time>{createdAt}</time>
+          </p>
+        )}
+        {!isEditing ? (
+          ''
+        ) : (
+          <div className="flex w-full justify-center gap-2">
             <button onClick={() => updatePost(id)}>저장</button>
             <button onClick={() => setIsEditing(false)}>취소</button>
           </div>
-        </StyledPostEdit>
-      ) : (
-        <>
-          <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-            {title && <h2>{title}</h2>}
-            {/* theme 사용 */}
-            <div style={{ display: 'flex', gap: '8px' }}>
-              <StyledButton onClick={() => deletePost(id)}>{isDeleting ? '삭제 중...' : '삭제'}</StyledButton>
-              <StyledButton onClick={() => setIsEditing(true)}>{isEditing ? '수정 중...' : '수정'}</StyledButton>
-            </div>
-          </div>
-          {content && <p className="content">{content}</p>}
-          {createdAt && (
-            <p className="created">
-              <strong>Created at:</strong> <time>{createdAt}</time>
-            </p>
-          )}
-          {/* 수정 버튼 클릭 시 상태값 변경 */}
-        </>
-      )}
+        )}
+        {/* 수정 버튼 클릭 시 상태값 변경 */}
+      </>
     </StyledPost>
   )
 }
