@@ -60,7 +60,15 @@ const header = () => {
         ${location.pathname === '/post' ? 'underline' : ''}
         `}
           >
-            글쓰기
+            게시판
+          </Link>
+          <Link
+            to="/gpt"
+            className={`hover:underline
+        ${location.pathname === '/gpt' ? 'underline' : ''}
+        `}
+          >
+            Gpt글쓰기
           </Link>
         </StyledMenu>
       ) : (
