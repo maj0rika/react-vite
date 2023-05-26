@@ -7,7 +7,7 @@ import Header from './components/Header'
 import Login from './components/Login'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
-const Post = lazy(() => import('./components/Post'))
+const Post = lazy(() => import('./components/Post/Index'))
 import Signup from './components/Signup'
 import Gpt from './components/Gpt'
 import { persistor } from '@/store/index'
