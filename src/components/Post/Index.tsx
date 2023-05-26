@@ -25,7 +25,7 @@ const StyledLoading = tw.p`
 
 function Post() {
   const [posts, setPosts] = useState<Post[]>([])
-  const [error, setError] = useState<Error>()
+  // const [error, setError] = useState<Error>()
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -53,9 +53,9 @@ function Post() {
     return () => unsubscribe()
   }, [])
 
-  if (error) {
-    return <div>Error: {error.message}</div>
-  }
+  // if (error) {
+  //   return <div>Error: {error.message}</div>
+  // }
 
   return (
     <PostList>
