@@ -6,7 +6,7 @@ import {
   setPersistence,
   browserSessionPersistence,
 } from 'firebase/auth'
-import { IMyInfo, actions } from '@/store/my'
+import { IMyInfo } from '@/store/my'
 
 import { auth } from '@/firebaseConfig'
 

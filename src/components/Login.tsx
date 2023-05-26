@@ -1,5 +1,5 @@
 import tw from 'tailwind-styled-components'
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { actions } from '@/store/my'
 import InputText from '@/components/Input/Text'
@@ -92,8 +92,8 @@ const Login = () => {
           // }, [dispatch, user])
         })
         .catch(error => {
-          const errorCode = error.code
-          const errorMessage = error.message
+          // const errorCode = error.code
+          // const errorMessage = error.message
         })
         .finally(() => {})
     })

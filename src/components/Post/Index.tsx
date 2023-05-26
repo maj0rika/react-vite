@@ -3,7 +3,13 @@ import PostCard from './Card'
 import tw from 'tailwind-styled-components'
 import Chance from 'chance'
 import { db } from '@/firebaseConfig'
-import { collection, query, onSnapshot, DocumentSnapshot, QuerySnapshot } from 'firebase/firestore'
+import {
+  collection,
+  query,
+  onSnapshot,
+  DocumentSnapshot,
+  QuerySnapshot,
+} from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 
 interface Post {
@@ -39,7 +45,7 @@ function Post() {
 
         setLoading(false)
       } catch (e) {
-        setError(e)
+        //ts
       }
     })
 

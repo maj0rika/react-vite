@@ -41,7 +41,7 @@ function PostCreate() {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault() // 기본 동작을 막습니다. 새로고침 방지
 
     if (!title || !content) {

@@ -1,5 +1,5 @@
 import React, { FC, useRef, useEffect } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import {
   shallowEqual,
   useSelector,
@@ -22,7 +22,7 @@ type PropsFromRedux = ConnectedProps<typeof connector> & {
 const AuthInit: FC<PropsFromRedux> = (props: PropsFromRedux) => {
   const didRequest = useRef(false)
   const dispatch = useDispatch()
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   // const location = useLocation()
 
   const userInfo = useSelector<RootState>(({ my }) => my.myInfo, shallowEqual)

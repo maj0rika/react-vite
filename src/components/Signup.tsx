@@ -45,9 +45,8 @@ const Signup = () => {
     }
 
     await register(email, password).then(() => {
-      alert('회원가입이 완료되었습니다.').then(() => {
-        window.location.href = '/login'
-      })
+      alert('회원가입이 완료되었습니다.')
+      window.location.href = '/login'
     })
 
     // await createUserWithEmailAndPassword(auth, email, password)

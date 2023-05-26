@@ -34,14 +34,14 @@ const StyledButton = tw.button`
   bg-primary/30 
   text-sm`
 
-const StyledPostEdit = tw.div`
-  flex
-  flex-col
-  gap-4
-  w-full
-  items-center
-  p-4
-`
+// const StyledPostEdit = tw.div`
+//   flex
+//   flex-col
+//   gap-4
+//   w-full
+//   items-center
+//   p-4
+// `
 
 function Post({
   title,
