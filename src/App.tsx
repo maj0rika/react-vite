@@ -5,13 +5,11 @@ import { PersistGate } from 'redux-persist/integration/react'
 
 import Header from './components/Header'
 import Login from './components/Login'
-import { BrowserRouter, Route, Link, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 const Post = lazy(() => import('./components/Post'))
 import Signup from './components/Signup'
-import { useEffect } from 'react'
-
-import { checkUser, logout } from '@/auth'
+import Gpt from './components/Gpt'
 import { persistor } from '@/store/index'
 
 import AuthInit from './modules/initialization/AuthInit'
@@ -65,6 +63,7 @@ function App() {
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<Signup />} />
                   <Route path="/post" element={<Post />} />
+                  <Route path="/gpt" element={<Gpt />} />
 
                   <Route path="/" element={<div>메인 페이지</div>} />
                 </Routes>{' '}
