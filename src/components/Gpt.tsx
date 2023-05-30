@@ -44,8 +44,7 @@ const ChatGptExample = () => {
       const translatedContent = await translateText(generatedPost)
 
       const [title, ...content] = translatedContent.split('\n\n')
-      console.log(title)
-      console.log(content)
+
       setGeneratedContent({
         id: '',
         title: title.trim(),
