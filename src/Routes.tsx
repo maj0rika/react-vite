@@ -1,6 +1,6 @@
 import { useRoutes, Navigate, useLocation } from 'react-router-dom'
 import { shallowEqual, useSelector } from 'react-redux'
-import my, { actions } from '@/store/my'
+
 import { lazy } from 'react'
 
 import Signup from './components/Signup'
