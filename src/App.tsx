@@ -2,17 +2,12 @@ import tw from 'tailwind-styled-components'
 import { Provider } from 'react-redux'
 import { store } from '@/store'
 import { PersistGate } from 'redux-persist/integration/react'
-
-import Header from './components/Header'
-import Login from './components/Login'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { lazy, Suspense } from 'react'
-const Post = lazy(() => import('./components/Post/Index'))
-import Signup from './components/Signup'
-import Gpt from './components/Gpt'
+import { BrowserRouter } from 'react-router-dom'
+import { Suspense } from 'react'
 import { persistor } from '@/store/index'
-
 import AuthInit from './modules/initialization/AuthInit'
+import Header from './components/Header'
+import Routes from './Routes'
 
 const StyledMain = tw.main`
 flex
@@ -59,14 +54,7 @@ function App() {
             <StyledMain>
               {' '}
               <Suspense fallback={<div>ㅁㄴㅇㄴㅁㅇㄴㅁ ...</div>}>
-                <Routes>
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/signup" element={<Signup />} />
-                  <Route path="/post" element={<Post />} />
-                  <Route path="/gpt" element={<Gpt />} />
-
-                  <Route path="/" element={<div>메인 페이지</div>} />
-                </Routes>{' '}
+                <Routes />
               </Suspense>
             </StyledMain>
           </AuthInit>
