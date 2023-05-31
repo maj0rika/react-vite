@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { collection, doc, setDoc } from 'firebase/firestore'
 import { db } from '@/firebaseConfig'
 import InputText from '@/components/Input/Text'
+import Button from '@/components/Button'
 
 const { VITE_GPT_KEY, VITE_RAPID_KEY } = import.meta.env
 
@@ -129,7 +130,8 @@ const ChatGptExample = () => {
 
   return (
     <div className="flex w-full flex-col gap-10">
-      <button onClick={generatePost}>Generate Post</button>
+      {/* <button onClick={generatePost}>Generate Post</button> */}
+      <Button onClick={generatePost}>Generate Post</Button>
       <div className="flex flex-col gap-2">
         <div>인공지능의 역할</div>
         <InputText
