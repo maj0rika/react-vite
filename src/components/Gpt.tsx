@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { collection, doc, setDoc } from 'firebase/firestore'
 import { db } from '@/firebaseConfig'
+const { VITE_GPT_KEY, VITE_RAPID_KEY } = import.meta.env
 
 const ChatGptExample = () => {
   const [generatedContent, setGeneratedContent] = useState({
@@ -29,8 +30,7 @@ const ChatGptExample = () => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            Authorization:
-              'Bearer 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', // Replace with your actual API key
+            Authorization: VITE_GPT_KEY, // Replace with your actual API key
           },
           body: JSON.stringify(requestBody),
         },
@@ -94,8 +94,7 @@ const ChatGptExample = () => {
           method: 'POST',
           headers: {
             'content-type': 'application/json',
-            'X-RapidAPI-Key':
-              '518e178792msh21a08a3249e468bp1b1399jsn1a389b901402',
+            'X-RapidAPI-Key': VITE_RAPID_KEY, // Replace with your actual API key
             'X-RapidAPI-Host': 'deepl-translator.p.rapidapi.com',
           },
           body: JSON.stringify(requestBody),
