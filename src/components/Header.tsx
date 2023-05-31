@@ -1,6 +1,6 @@
 import tw from 'tailwind-styled-components'
 import { Link, useLocation } from 'react-router-dom'
-import my, { actions } from '@/store/my'
+import { actions } from '@/store/my'
 import { useSelector, useDispatch } from 'react-redux'
 import { logout } from '@/auth'
 
@@ -32,7 +32,7 @@ const StyledMenu = tw.div`
 const header = () => {
   const location = useLocation()
   const dispatch = useDispatch()
-  console.log(my)
+
   const myInfo = useSelector((state: any) => state.my.myInfo)
 
   console.log(myInfo)

@@ -33,7 +33,7 @@ const InputText = ({
   onChange,
   className,
   id,
-  validation,
+  validation = true,
   type = 'text',
   placeholder,
 }: InputProps) => {
