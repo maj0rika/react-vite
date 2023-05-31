@@ -5,8 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { logout } from '@/auth'
 
 const StyleHeader = tw.header`
-  fixed
-  top-0
+
   flex
   justify-between
   items-center
@@ -16,6 +15,11 @@ const StyleHeader = tw.header`
   text-white
   font-bold
   text-xl
+  mobile:px-5
+  mobile:text-base
+  break-keep
+  flex-wrap
+  
 `
 
 const StyledMenu = tw.div`

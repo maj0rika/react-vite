@@ -10,22 +10,23 @@ import Header from './components/Header'
 import Routes from './Routes'
 
 const StyledMain = tw.main`
-flex
-flex-wrap
-justify-center
-w-full
-m-auto
-gap-4 
-items-center
-py-15
-min-h-screen
-bg-gradient-to-tr
-from-purple-400
-from-0%
-to-primary/95
-to-60%
-
-
+  flex
+  flex-col
+  flex-wrap
+  justify-start
+  w-full
+  m-auto
+  gap-4 
+  items-center
+  py-15
+  min-h-screen
+  bg-gradient-to-tr
+  from-purple-400
+  from-0%
+  to-primary/95
+  to-60%
+  px-4
+  
 `
 
 function App() {
@@ -50,9 +51,8 @@ function App() {
       <PersistGate loading={<div>aaaaa ...</div>} persistor={persistor}>
         <BrowserRouter>
           <AuthInit>
-            <Header />
             <StyledMain>
-              {' '}
+              <Header />
               <Suspense fallback={<div>ㅁㄴㅇㄴㅁㅇㄴㅁ ...</div>}>
                 <Routes />
               </Suspense>

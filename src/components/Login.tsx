@@ -13,22 +13,10 @@ import {
 } from 'firebase/auth'
 import Button from './Button'
 import { useNavigate } from 'react-router-dom'
+import '@/index.css'
 
 const StyledMain = tw.main`
-flex
-flex-col
-flex-wrap
-justify-center
-w-full
-max-w-[500px]
-bg-purple-700
-rounded-md
-p-8
-m-auto
-gap-4
-items-center
-shadow-2xl
-text-purple-200
+  card-container
 `
 
 const Login = () => {

@@ -18,3 +18,20 @@ input[type='password'] {
 ::placeholder {
   font-family: 'bmjua';
 }
+
+@layer utilities {
+}
+
+@layer components {
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+
+  .flex-center-column {
+    @apply flex flex-col items-center justify-center;
+  }
+
+  .card-container {
+    @apply flex-center-column  w-full max-w-[500px] gap-4 rounded-md bg-purple-700 p-8 text-purple-200 shadow-2xl;
+  }
+}
