@@ -6,6 +6,7 @@ import { lazy } from 'react'
 import Signup from './components/Signup'
 import Gpt from './components/Gpt'
 import Login from './components/Login'
+import Main from './components/Main'
 const Post = lazy(() => import('./components/Post/Index'))
 
 const PrivateUser = (props: any) => {
@@ -23,11 +24,7 @@ export default function Router() {
   return useRoutes([
     {
       path: '/',
-      element: (
-        <div>
-          <h1>Home</h1>
-        </div>
-      ),
+      element: <Main />,
     },
     {
       path: '/login',
