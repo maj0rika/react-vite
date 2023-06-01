@@ -53,7 +53,7 @@ function App() {
           <AuthInit>
             <StyledMain>
               <Header />
-              <Suspense fallback={<div>ㅁㄴㅇㄴㅁㅇㄴㅁ ...</div>}>
+              <Suspense fallback={<div>로딩중 ...</div>}>
                 <Routes />
               </Suspense>
             </StyledMain>
