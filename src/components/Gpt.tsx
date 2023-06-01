@@ -152,7 +152,16 @@ const ChatGptExample = () => {
       ) : (
         <div>
           <div>{generatedContent.title}</div>
-          <div>{generatedContent.content}</div>
+          <div>
+            {generatedContent.content.split('\n').map((line, i) => {
+              return (
+                <span key={i}>
+                  {line}
+                  <br />
+                </span>
+              )
+            })}
+          </div>
         </div>
       )}
     </div>

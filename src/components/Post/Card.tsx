@@ -13,7 +13,6 @@ const StyledPost = tw.li`
   shadow-3xl
   p-4
   w-full
-  max-w-md
   h-full
   max-h-md
   flex
@@ -38,6 +37,7 @@ function Post({
   const [isEditing, setIsEditing] = useState(false) // 수정 중 표시를 위한 상태값 추가
   const [editedTitle, setEditedTitle] = useState(title)
   const [editedContent, setEditedContent] = useState(content)
+  const [isExpanded, setIsExpanded] = useState(false)
 
   const deletePost = async (id: string) => {
     setIsDeleting(true)
@@ -88,7 +88,14 @@ function Post({
           <div className="flex w-full items-center justify-between gap-2">
             {title && <h2>{title}</h2>}
             <div className="flex h-8 items-center gap-2">
-              <Button onClick={() => updatePost(id)}>
+              {isExpanded && (
+                <Button onClick={() => setIsExpanded(false)}>접기</Button>
+              )}
+              {!isExpanded && content.length > 20 && (
+                <Button onClick={() => setIsExpanded(true)}>펼치기</Button>
+              )}
+
+              <Button onClick={() => setIsEditing(true)}>
                 {isEditing ? '수정 중...' : '수정'}
               </Button>
               <Button onClick={() => deletePost(id)}>
@@ -108,7 +115,21 @@ function Post({
       {/* 수정 버튼 추가 */}
       <>
         {!isEditing ? (
-          editedContent && <p className="content">{editedContent}</p>
+          editedContent &&
+          (isExpanded ? (
+            editedContent.split('\n').map(line => {
+              return (
+                <span>
+                  {line}
+                  <br />
+                </span>
+              )
+            })
+          ) : (
+            <div className="flex w-full items-center justify-between gap-2">
+              <p className="content">{editedContent.split('\n')[0]}</p>
+            </div>
+          ))
         ) : (
           <InputTextarea
             className="w-full"
