@@ -8,7 +8,7 @@ const StyledPostList = tw.ul`
   gap-4
   items-center
   justify-center
-  p-4
+
 `
 
 interface PostListProps {
