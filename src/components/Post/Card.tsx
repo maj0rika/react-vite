@@ -4,6 +4,7 @@ import { db } from '@/firebaseConfig'
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore' // <-- not firebase/database
 import InputText from '../Input/Text'
 import InputTextarea from '../Input/Textarea'
+import Button from '../Button'
 
 const StyledPost = tw.li`
   bg-purple-700
@@ -21,27 +22,6 @@ const StyledPost = tw.li`
   gap-4
   relative
 `
-
-const StyledButton = tw.button`
-  border-2
-  rounded-md
-  px-2
-  border-white
-  flex
-  items-center
-  justify-center
-  text-white
-  bg-primary/30 
-  text-sm`
-
-// const StyledPostEdit = tw.div`
-//   flex
-//   flex-col
-//   gap-4
-//   w-full
-//   items-center
-//   p-4
-// `
 
 function Post({
   title,
@@ -105,17 +85,17 @@ function Post({
         }}
       >
         {!isEditing ? (
-          <>
+          <div className="flex w-full items-center justify-between gap-2">
             {title && <h2>{title}</h2>}
-            <div style={{ display: 'flex', gap: '8px' }}>
-              <StyledButton onClick={() => deletePost(id)}>
-                {isDeleting ? '삭제 중...' : '삭제'}
-              </StyledButton>
-              <StyledButton onClick={() => setIsEditing(true)}>
+            <div className="flex h-8 items-center gap-2">
+              <Button onClick={() => updatePost(id)}>
                 {isEditing ? '수정 중...' : '수정'}
-              </StyledButton>
+              </Button>
+              <Button onClick={() => deletePost(id)}>
+                {isDeleting ? '삭제 중...' : '삭제'}
+              </Button>
             </div>
-          </>
+          </div>
         ) : (
           <InputText
             className="w-full"
@@ -145,8 +125,8 @@ function Post({
           ''
         ) : (
           <div className="flex w-full justify-center gap-2">
-            <button onClick={() => updatePost(id)}>저장</button>
-            <button onClick={() => setIsEditing(false)}>취소</button>
+            <Button onClick={() => updatePost(id)}>저장</Button>
+            <Button onClick={() => setIsEditing(false)}>취소</Button>
           </div>
         )}
         {/* 수정 버튼 클릭 시 상태값 변경 */}
