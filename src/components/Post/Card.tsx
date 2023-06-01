@@ -5,6 +5,7 @@ import { deleteDoc, doc, updateDoc } from 'firebase/firestore' // <-- not fireba
 import InputText from '../Input/Text'
 import InputTextarea from '../Input/Textarea'
 import Button from '../Button'
+import dayjs from 'dayjs'
 
 const StyledPost = tw.li`
   bg-purple-700
@@ -86,7 +87,7 @@ function Post({
       >
         {!isEditing ? (
           <div className="flex w-full items-center justify-between gap-2">
-            {title && <h2>{title}</h2>}
+            {title && <h1 className="text-xl font-bold">{title}</h1>}
             <div className="flex h-8 items-center gap-2">
               {isExpanded && (
                 <Button onClick={() => setIsExpanded(false)}>접기</Button>
@@ -105,7 +106,7 @@ function Post({
           </div>
         ) : (
           <InputText
-            className="w-full"
+            className="w-full "
             value={editedTitle}
             onChange={e => setEditedTitle(e.target.value)}
           />
@@ -138,8 +139,8 @@ function Post({
           />
         )}
         {createdAt && (
-          <p className="created">
-            <strong>Created at:</strong> <time>{createdAt}</time>
+          <p className="text-sm font-thin ">
+            작성일 : {dayjs(createdAt).format('YY년 MM월 DD일')}
           </p>
         )}
         {!isEditing ? (
