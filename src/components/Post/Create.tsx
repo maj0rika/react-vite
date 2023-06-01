@@ -76,23 +76,23 @@ function PostCreate() {
 
   return (
     <StylePostCreate onSubmit={handleSubmit}>
-      <label>
-        Title
+      <label className="w-full">
+        제목
         <InputText
           className="w-full"
           value={title}
           onChange={e => setTitle(e.target.value)}
         />
       </label>
-      <label>
-        Body
+      <label className="w-full">
+        내용
         <InputTextarea
           className="w-full"
           value={content}
           onChange={e => setContent(e.target.value)}
         />
       </label>
-      <StyledButton type="submit">Create Post</StyledButton>
+      <StyledButton type="submit">게시하기</StyledButton>
       {loading && (
         <StyledMessage className=" text-blue-500">Loading...</StyledMessage>
       )}
