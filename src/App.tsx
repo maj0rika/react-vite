@@ -18,7 +18,7 @@ const StyledMain = tw.main`
   m-auto
   gap-4 
   items-center
-  py-15
+  pb-[50px]
   min-h-screen
   bg-gradient-to-tr
   from-purple-400
