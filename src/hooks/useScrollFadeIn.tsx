@@ -21,9 +21,9 @@ const useScrollFadeIn = (
       case 'down':
         return `translate3d(0, -${threshold}%, 0)`
       case 'left':
-        return `translate3d(${threshold}%, 0, 0)`
+        return `translate3d(${threshold}vw, 0, 0)`
       case 'right':
-        return `translate3d(-${threshold}%, 0, 0)`
+        return `translate3d(-${threshold}vw, 0, 0)`
       case 'fadeOut':
         return `translate3d(0, 0, 0)`
 

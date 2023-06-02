@@ -15,7 +15,7 @@ const Main = () => {
   }, [])
 
   return (
-    <div>
+    <div className="w-full  overflow-hidden">
       <img className="h-screen w-full" src={mainImg} alt="main" />
       <div
         ref={animatedItem[0].ref}
