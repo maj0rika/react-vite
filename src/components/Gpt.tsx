@@ -14,10 +14,8 @@ const ChatGptExample = () => {
     createdAt: '',
   })
   const [isLoading, setIsLoading] = useState(false)
-  const [systemCommand, setSystemCommand] = useState(
-    'You are a blog post generator',
-  )
-  const [userCommand, setUserCommand] = useState('Generate a blog post for me')
+  const [systemCommand, setSystemCommand] = useState('넌 게시글 생성기야')
+  const [userCommand, setUserCommand] = useState('게시글 생성해줘')
 
   const generatePost = async () => {
     setIsLoading(true) // Set isLoading to true to show the loading screen
@@ -145,10 +143,9 @@ const ChatGptExample = () => {
           value={userCommand}
           onChange={e => setUserCommand(e.target.value)}
         />
-        <div>영어로 입력해야합니다.</div>
       </div>
       {isLoading ? (
-        <div>Loading...</div>
+        <div>Chat GPT가 열심히 작업중입니다...</div>
       ) : (
         <div>
           <div>{generatedContent.title}</div>
