@@ -41,6 +41,13 @@ function Post() {
             postsArray.push(data as Post)
           }
         })
+
+        postsArray.sort((a, b) => {
+          return (
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          )
+        })
+
         setPosts(postsArray)
 
         setLoading(false)
@@ -60,6 +67,7 @@ function Post() {
   return (
     <PostList>
       {loading && <StyledLoading>Loading...</StyledLoading>}
+
       {posts.map(post => (
         <PostCard
           key={Chance().guid()}
