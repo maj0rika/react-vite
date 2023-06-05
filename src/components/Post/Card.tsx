@@ -35,7 +35,7 @@ function Post({
   id: string
 }) {
   const [isDeleting, setIsDeleting] = useState(false)
-  const [isEditing, setIsEditing] = useState(false) // 수정 중 표시를 위한 상태값 추가
+  const [isEditing, setIsEditing] = useState(false)
   const [editedTitle, setEditedTitle] = useState(title)
   const [editedContent, setEditedContent] = useState(content)
   const [isExpanded, setIsExpanded] = useState(false)
@@ -73,7 +73,8 @@ function Post({
       setIsEditing(false)
     }
   }
-  //수정 화면 모닳령식으로 변경하기.
+  //TODO:수정 화면 모닳령식으로 변경하기.
+
   return (
     <StyledPost>
       {' '}
@@ -86,9 +87,9 @@ function Post({
         }}
       >
         {!isEditing ? (
-          <div className="flex w-full items-center justify-between gap-2">
+          <div className="flex w-full items-start justify-between gap-2">
             {title && <h1 className="text-xl font-bold">{title}</h1>}
-            <div className="flex h-8 items-center gap-2">
+            <div className="flex h-8 items-center gap-2 ">
               {isExpanded && (
                 <Button onClick={() => setIsExpanded(false)}>접기</Button>
               )}
@@ -111,9 +112,7 @@ function Post({
             onChange={e => setEditedTitle(e.target.value)}
           />
         )}
-        {/* theme 사용 */}
       </div>
-      {/* 수정 버튼 추가 */}
       <>
         {!isEditing ? (
           editedContent &&
@@ -151,7 +150,6 @@ function Post({
             <Button onClick={() => setIsEditing(false)}>취소</Button>
           </div>
         )}
-        {/* 수정 버튼 클릭 시 상태값 변경 */}
       </>
     </StyledPost>
   )
