@@ -1,9 +1,10 @@
+import { useState, useMemo } from 'react'
 import tw from 'tailwind-styled-components'
-import { useState } from 'react'
 import { db } from '@/firebaseConfig'
 import { collection, doc, setDoc } from 'firebase/firestore'
 import InputText from '@/components/Input/Text'
 import InputTextarea from '@/components/Input/Textarea'
+import { InputChangeEvent } from '@/components/Input/Text'
 
 const StylePostCreate = tw.form`
   flex
@@ -15,7 +16,7 @@ const StylePostCreate = tw.form`
   p-4
   text-white
   rounded-md
-bg-purple-700
+  bg-purple-700
 `
 
 const StyledButton = tw.button`
@@ -31,7 +32,6 @@ const StyledButton = tw.button`
 const StyledMessage = tw.p`
   mt-2
   text-sm
-
 `
 
 function PostCreate() {
@@ -41,11 +41,11 @@ function PostCreate() {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault() // 기본 동작을 막습니다. 새로고침 방지
+  const handleSubmit = async e => {
+    e.preventDefault()
 
     if (!title || !content) {
-      setError('Please enter title and content')
+      setError('제목과 내용을 입력해주세요.')
       return
     }
 
@@ -53,9 +53,11 @@ function PostCreate() {
     setError('')
     setSuccess('')
 
-    const newPostRef = doc(collection(db, 'posts')) // 고유한 ID가 자동으로 생성됩니다.
+    const postsCollectionRef = collection(db, 'posts')
+    const newPostRef = doc(postsCollectionRef)
+
     const newPostData = {
-      id: newPostRef.id, // 생성된 ID를 데이터와 함께 저장합니다.
+      id: newPostRef.id,
       title,
       content,
       createdAt: new Date().toISOString(),
@@ -63,16 +65,26 @@ function PostCreate() {
 
     try {
       await setDoc(newPostRef, newPostData)
-      setSuccess('Post created successfully!')
+      setSuccess('게시글이 성공적으로 작성되었습니다.')
       setTitle('')
       setContent('')
     } catch (error) {
       console.error('Error creating new post:', error)
-      setError('Error creating new post')
+      setError('게시글 작성에 실패했습니다.')
     } finally {
       setLoading(false)
     }
   }
+
+  // 최적화: 필요한 핸들러 함수와 컴포넌트 프롭스 캐싱
+  const handleTitleChange = useMemo(
+    () => (e: InputChangeEvent) => setTitle(e.target.value),
+    [],
+  )
+  const handleContentChange = useMemo(
+    () => (e: InputChangeEvent) => setContent(e.target.value),
+    [],
+  )
 
   return (
     <StylePostCreate onSubmit={handleSubmit}>
@@ -81,7 +93,7 @@ function PostCreate() {
         <InputText
           className="w-full"
           value={title}
-          onChange={e => setTitle(e.target.value)}
+          onChange={handleTitleChange}
         />
       </label>
       <label className="w-full">
@@ -89,12 +101,12 @@ function PostCreate() {
         <InputTextarea
           className="w-full"
           value={content}
-          onChange={e => setContent(e.target.value)}
+          onChange={handleContentChange}
         />
       </label>
       <StyledButton type="submit">게시하기</StyledButton>
       {loading && (
-        <StyledMessage className=" text-blue-500">Loading...</StyledMessage>
+        <StyledMessage className="text-blue-500">Loading...</StyledMessage>
       )}
       {error && <StyledMessage className="text-red-500">{error}</StyledMessage>}
       {success && (
