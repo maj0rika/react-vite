@@ -20,7 +20,8 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH }}
           script: |
-            cd git/react-vite
+            cd git
+            cd react-vite
             git pull
             yarn
             pm2 start yarn -- dev
