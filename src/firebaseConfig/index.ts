@@ -16,14 +16,6 @@ const {
 console.log(import.meta.env)
 
 const firebaseConfig = {
-  // apiKey: 'AIzaSyC62Gwkyf0FMOMgxp5BvNIk7cfiJ6svJqc',
-  // authDomain: 'react-post-8f106.firebaseapp.com',
-  // projectId: 'react-post-8f106',
-  // storageBucket: 'react-post-8f106.appspot.com',
-  // messagingSenderId: '72952291039',
-  // appId: '1:72952291039:web:7ce10f8e542b83ca64936a',
-  // measurementId: 'G-B32V8TF2TX',
-
   apiKey: VITE_API_KEY,
   authDomain: VITE_AUTH_DOMAIN,
   projectId: VITE_PROJECT_ID,

@@ -1,7 +1,7 @@
 import tw from 'tailwind-styled-components'
 import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { actions } from '@/store/my'
+import { useDispatch /* useSelector*/ } from 'react-redux'
+import { setMyInfo } from '@/store/my'
 import InputText from '@/components/Input/Text'
 import { auth as authConfig } from '@/firebaseConfig'
 import { emailvalidate, passwordvalidate } from '@/validate'
@@ -25,7 +25,7 @@ const Login = () => {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const myInfo = useSelector((state: any) => state.my.myInfo)
+  // const myInfo = useSelector((state: any) => state.my.myInfo)
 
   const Loign = async () => {
     if (!emailvalidate(email)) {
@@ -40,45 +40,39 @@ const Login = () => {
 
     setPersistence(authConfig, browserSessionPersistence).then(async () => {
       await signInWithEmailAndPassword(authConfig, email, password)
-        .then(async (userCredential: { user: any }) => {
-          // Signed in
-          const user = userCredential.user
-          console.log(user)
-          dispatch(
-            actions.setMyInfo({
-              email: user.email,
-            }),
-          )
-          console.log('user', user)
-
-          console.log('myInfo', myInfo)
-
-          onAuthStateChanged(authConfig, user => {
-            if (user) {
-              const uid = user.uid
-              console.log(uid)
-              // ...
-            } else {
-              // User is signed out
-              // ...
+        .then(
+          async (userCredential: {
+            user: {
+              email: string | null | undefined
             }
-          })
+          }) => {
+            const user = userCredential.user
 
-          navigate('/')
+            if (!user) {
+              alert('로그인에 실패하였습니다.')
+              return
+            }
 
-          // dispatch(actions.login())
+            dispatch(
+              setMyInfo({
+                email: user.email as string,
+              }),
+            )
 
-          // useCallback(() => {
-          //   dispatch(
-          //     actions.setMyInfo({
-          //       email: user.email,
-          //       uid: user.uid,
-          //       displayName: user.displayName,
-          //       photoURL: user.photoURL,
-          //     }),
-          //   )
-          // }, [dispatch, user])
-        })
+            onAuthStateChanged(authConfig, user => {
+              if (user) {
+                const uid = user.uid
+                console.log(uid)
+                // ...
+              } else {
+                // User is signed out
+                // ...
+              }
+            })
+
+            navigate('/')
+          },
+        )
         .finally(() => {})
     })
   }
@@ -90,12 +84,6 @@ const Login = () => {
 
   return (
     <StyledMain>
-      {/* <div>
-        <h1>Count: {count}</h1>
-        <button onClick={() => dispatch(increment())}>Increment</button>
-        <button onClick={() => dispatch(decrement())}>Decrement</button>
-      </div> */}
-
       <h1 className="text-xl">로그인</h1>
       <div className="flex w-full items-center gap-4">
         <label htmlFor="email" className="w-[80px]">

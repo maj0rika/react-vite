@@ -1,9 +1,11 @@
 import tw from 'tailwind-styled-components'
 import { Link, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { logout } from '@/auth'
-import { actions } from '@/store/my'
+import { signOut } from 'firebase/auth'
+import { auth } from '@/firebaseConfig'
+import { logout } from '@/store/my'
 import logo from '@/assets/images/logo.png'
+import { RootState } from '@/store'
 
 const StyledHeader = tw.header`
   flex
@@ -37,15 +39,19 @@ const Header = () => {
   const location = useLocation()
   const dispatch = useDispatch()
 
-  const myInfo = useSelector((state: any) => state.my.myInfo)
+  const myInfo = useSelector((state: RootState) => state.my.myInfo)
 
   const isLinkActive = (path: string) => location.pathname === path
   const getLinkClassName = (path: string) =>
     isLinkActive(path) ? 'underline' : ''
 
-  const handleLogout = () => {
-    logout()
-    dispatch(actions.logout())
+  const handleLogout = async () => {
+    try {
+      await signOut(auth)
+    } catch (error) {
+      console.log(error)
+    }
+    dispatch(logout())
   }
 
   return (

@@ -1,35 +1,55 @@
 import React, { FC, useRef, useEffect } from 'react'
-// import { useNavigate } from 'react-router-dom'
-import {
-  shallowEqual,
-  useSelector,
-  connect,
-  useDispatch,
-  ConnectedProps,
-} from 'react-redux'
+import { shallowEqual, useSelector, useDispatch } from 'react-redux'
 import { RootState } from '@/store/index'
-import { actions } from '@/store/my'
+import { setMyInfo, logout, IMyInfo } from '@/store/my'
+import { auth } from '@/firebaseConfig'
+import { onAuthStateChanged } from 'firebase/auth'
 
-import { checkUser, getUser } from '@/auth'
-
-const mapState = (state: RootState) => ({ auth: state.my })
-const connector = connect(mapState, actions)
-type PropsFromRedux = ConnectedProps<typeof connector> & {
+type Props = {
   children: React.ReactNode
 }
 
-//actions로 타입정의
-const AuthInit: FC<PropsFromRedux> = (props: PropsFromRedux) => {
+const getUser = () => {
+  console.log('getUser')
+  return auth.currentUser
+}
+
+const checkUser = async () => {
+  console.log('checkUser')
+  const user = getUser()
+  if (user) {
+    const myInfo: IMyInfo = {
+      email: user.email || '',
+    }
+    return myInfo
+  } else {
+    return new Promise<IMyInfo | undefined>((resolve, reject) => {
+      onAuthStateChanged(
+        auth,
+        user => {
+          if (user) {
+            const myInfo: IMyInfo = {
+              email: user.email || '',
+            }
+            resolve(myInfo)
+          } else {
+            resolve(undefined)
+          }
+        },
+        reject,
+      )
+    })
+  }
+}
+
+const AuthInit: FC<Props> = ({ children }) => {
   const didRequest = useRef(false)
   const dispatch = useDispatch()
-  // const navigate = useNavigate()
-  // const location = useLocation()
 
-  const userInfo = useSelector<RootState>(({ my }) => my.myInfo, shallowEqual)
-
-  // We should request user by authToken before rendering the application
-  // 1. accessToken 변경 여부를 감지하여 로그인 성공 시 sx페이지 이동
-  // 2. 새로고침할 때 사용자 정보를 서버에 요청하여 반영
+  const userInfo = useSelector<RootState, IMyInfo | undefined>(
+    state => state.my.myInfo,
+    shallowEqual,
+  )
 
   useEffect(() => {
     const requestUser = async () => {
@@ -37,30 +57,28 @@ const AuthInit: FC<PropsFromRedux> = (props: PropsFromRedux) => {
         if (!didRequest.current) {
           const user = await checkUser()
 
-          dispatch(props.setMyInfo(user))
+          dispatch(setMyInfo(user))
         }
       } catch (error) {
         console.error(error)
         if (!didRequest.current) {
-          dispatch(props.logout())
+          dispatch(logout())
         }
       }
 
-      return () => (didRequest.current = true)
+      return () => {
+        didRequest.current = true
+      }
     }
 
-    console.log('userInfo', userInfo)
     const isLogin = getUser()
-    console.log('isLogin', isLogin)
+
     if (!isLogin && !userInfo) {
       requestUser()
     }
-    // else {
-    //   dispatch(props.logout());
-    // }
   }, [])
 
-  return <React.Fragment>{props.children}</React.Fragment>
+  return <React.Fragment>{children}</React.Fragment>
 }
 
-export default connector(AuthInit)
+export default AuthInit
