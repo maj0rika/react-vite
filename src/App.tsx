@@ -49,7 +49,7 @@ function App() {
     <Provider store={store as any}>
       {' '}
       <PersistGate loading={<div>aaaaa ...</div>} persistor={persistor}>
-        <BrowserRouter>
+        <BrowserRouter basename="/react">
           <AuthInit>
             <StyledMain>
               <Header />
