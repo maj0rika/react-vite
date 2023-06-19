@@ -41,7 +41,7 @@ function PostCreate() {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault()
 
     if (!title || !content) {

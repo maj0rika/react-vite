@@ -57,7 +57,7 @@ const AuthInit: FC<Props> = ({ children }) => {
         if (!didRequest.current) {
           const user = await checkUser()
 
-          dispatch(setMyInfo(user))
+          dispatch(setMyInfo(user as IMyInfo))
         }
       } catch (error) {
         console.error(error)
