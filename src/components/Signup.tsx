@@ -46,9 +46,7 @@ const Signup = () => {
       )
       const user = userCredential.user
       return user
-    } catch (error) {
-      console.log(error)
-    }
+    } catch (error) {}
   }
 
   return (

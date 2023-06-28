@@ -10,9 +10,7 @@ const Main = () => {
     3: useScrollFadeIn('right', 2),
   }
 
-  useEffect(() => {
-    console.log('Main')
-  }, [])
+  useEffect(() => {}, [])
 
   return (
     <div className="flex w-full flex-col justify-center gap-5  overflow-hidden">

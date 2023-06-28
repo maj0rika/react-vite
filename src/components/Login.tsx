@@ -62,7 +62,7 @@ const Login = () => {
             onAuthStateChanged(authConfig, user => {
               if (user) {
                 const uid = user.uid
-                console.log(uid)
+
                 // ...
               } else {
                 // User is signed out

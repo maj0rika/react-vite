@@ -43,16 +43,12 @@ const ChatGptExample = () => {
 
       const data = await response.json()
       const generatedPost = data.choices[0].message.content
-      console.log(generatedPost)
+
       // Separate the title and content
 
       let translatedContent = await translateText(generatedPost)
 
-      console.log(translatedContent)
-
       const [title, ...content] = translatedContent.split('\n\n')
-
-      console.log(title)
 
       setGeneratedContent((prevState: any) => {
         return {
@@ -70,7 +66,6 @@ const ChatGptExample = () => {
 
   useEffect(() => {
     if (generatedContent.title && generatedContent.content) {
-      console.log('uploading post', generatedContent)
       uploadPost()
     }
   }, [generatedContent])
@@ -84,19 +79,14 @@ const ChatGptExample = () => {
       createdAt: new Date().toISOString(),
     }
 
-    console.log('uploading post', newPostData)
-
     try {
       let res = await setDoc(newPostRef, newPostData)
-      console.log(res)
     } catch (error) {
       console.error('Error creating new post:', error)
     }
   }
 
   const translateText = async (text: string) => {
-    console.log('Translating text:', text)
-
     const requestBody = {
       text,
       target: 'KO',

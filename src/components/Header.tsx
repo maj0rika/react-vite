@@ -48,9 +48,7 @@ const Header = () => {
   const handleLogout = async () => {
     try {
       await signOut(auth)
-    } catch (error) {
-      console.log(error)
-    }
+    } catch (error) {}
     dispatch(logout())
   }
 
