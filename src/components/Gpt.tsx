@@ -80,7 +80,7 @@ const ChatGptExample = () => {
     }
 
     try {
-      let res = await setDoc(newPostRef, newPostData)
+      await setDoc(newPostRef, newPostData)
     } catch (error) {
       console.error('Error creating new post:', error)
     }

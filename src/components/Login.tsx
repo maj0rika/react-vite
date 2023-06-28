@@ -59,15 +59,14 @@ const Login = () => {
               }),
             )
 
-            onAuthStateChanged(authConfig, user => {
-              if (user) {
-                const uid = user.uid
-
-                // ...
-              } else {
-                // User is signed out
-                // ...
-              }
+            onAuthStateChanged(authConfig, () => {
+              // if (user) {
+              //   const uid = user.uid
+              //   // ...
+              // } else {
+              //   // User is signed out
+              //   // ...
+              // }
             })
 
             navigate('/')
