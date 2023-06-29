@@ -24,7 +24,11 @@ const Main = () => {
         style={animatedItem[0].style}
         className="flex h-screen w-full items-center justify-center"
       >
-        <img className="h-full w-auto" src={mainImg} alt="main" />
+        <img
+          className="!aspect-square w-full max-w-[800px]"
+          src={mainImg}
+          alt="main"
+        />
       </div>
       {/* <div
         ref={animatedItem[1].ref}
