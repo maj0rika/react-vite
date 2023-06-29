@@ -44,11 +44,15 @@ const ChatGptExample = () => {
       const data = await response.json()
       const generatedPost = data.choices[0].message.content
 
-      // Separate the title and content
+      let [title, ...content] = generatedPost.split('\n\n')
 
-      let translatedContent = await translateText(generatedPost)
+      if (detectLanguage(title) === 'english') {
+        let translatedContent = await translateText(generatedPost)
 
-      const [title, ...content] = translatedContent.split('\n\n')
+        //  [title, ...content] = translatedContent.split('\n\n')
+        title = translatedContent.split('\n\n')[0]
+        content = translatedContent.split('\n\n').slice(1)
+      }
 
       setGeneratedContent((prevState: any) => {
         return {
@@ -75,6 +79,19 @@ const ChatGptExample = () => {
       console.error('Error generating post:', error)
     } finally {
       setIsLoading(false) // Set isLoading back to false after API communication is completed
+    }
+  }
+
+  const detectLanguage = (str: string) => {
+    const korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/
+    const english = /[A-Za-z]/
+
+    if (korean.test(str)) {
+      return 'korean'
+    } else if (english.test(str)) {
+      return 'english'
+    } else {
+      return 'unknown'
     }
   }
 
