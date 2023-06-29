@@ -10,12 +10,10 @@ type Props = {
 }
 
 const getUser = () => {
-  console.log('getUser')
   return auth.currentUser
 }
 
 const checkUser = async () => {
-  console.log('checkUser')
   const user = getUser()
   if (user) {
     const myInfo: IMyInfo = {

@@ -25,7 +25,6 @@ const Login = () => {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  // const myInfo = useSelector((state: any) => state.my.myInfo)
 
   const Loign = async () => {
     if (!emailvalidate(email)) {

@@ -26,29 +26,12 @@ const StyledMain = tw.main`
   to-primary/95
   to-60%
   px-4
-  
 `
 
 function App() {
-  //쿠키 사용
-  // const dispatch = useDispatch()
-
-  // useEffect(() => {
-  //   const getToken = async () => {
-  //     if (await checkUser()) {
-  //       console.log('토큰이 있습니다.')
-  //     } else {
-  //       await logout()
-  //     }
-  //   }
-
-  //   getToken()
-  // }, [])
-
   return (
     <Provider store={store as any}>
-      {' '}
-      <PersistGate loading={<div>aaaaa ...</div>} persistor={persistor}>
+      <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter basename="/react">
           <AuthInit>
             <StyledMain>

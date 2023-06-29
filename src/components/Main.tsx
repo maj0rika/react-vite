@@ -16,17 +16,17 @@ const Main = () => {
     <div className="flex w-full flex-col justify-center gap-5  overflow-hidden">
       {/* <img className="h-screen w-full" src={mainImg} alt="main" />
        */}
-      <p className="flex h-[calc(100vh-100px)] w-full items-center justify-center font-bold text-white">
+      {/* <p className="flex h-[calc(100vh-100px)] w-full items-center justify-center font-bold text-white">
         스크롤 에니메이션 테스트 중! 아래로 스크롤 해보세요!
-      </p>
+      </p> */}
       <div
         ref={animatedItem[0].ref}
         style={animatedItem[0].style}
-        className="flex h-screen"
+        className="flex h-screen w-full items-center justify-center"
       >
-        <img className="h-screen w-auto" src={mainImg} alt="main" />
+        <img className="h-full w-auto" src={mainImg} alt="main" />
       </div>
-      <div
+      {/* <div
         ref={animatedItem[1].ref}
         style={animatedItem[1].style}
         className="flex h-screen"
@@ -46,7 +46,7 @@ const Main = () => {
         className="flex h-screen"
       >
         <img className="h-screen w-auto" src={mainImg} alt="main" />
-      </div>
+      </div> */}
     </div>
   )
 }

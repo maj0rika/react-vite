@@ -36,7 +36,7 @@ function Post() {
         const postsArray: Post[] = []
         querySnapshot.forEach((doc: DocumentSnapshot) => {
           const data = doc.data()
-          console.log(data)
+
           if (data) {
             postsArray.push(data as Post)
           }
@@ -56,7 +56,6 @@ function Post() {
       }
     })
 
-    console.log(posts)
     return () => unsubscribe()
   }, [])
 

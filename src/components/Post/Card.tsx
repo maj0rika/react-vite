@@ -48,7 +48,7 @@ function Post({
       await deleteDoc(postRef)
       setIsDeleting(false)
     } catch (error) {
-      console.error('Error deleting post:', error)
+      // console.error('Error deleting post:', error)
       setIsDeleting(false)
     }
   }
@@ -69,7 +69,7 @@ function Post({
 
       setIsEditing(false)
     } catch (error) {
-      console.error('Error updating post:', error)
+      // console.error('Error updating post:', error)
       setIsEditing(false)
     }
   }
