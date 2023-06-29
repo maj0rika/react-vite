@@ -44,21 +44,21 @@ const ChatGptExample = () => {
       const data = await response.json()
       const generatedPost = data.choices[0].message.content
 
-      let [title, ...content] = generatedPost.split('\n\n')
+      let [title, ...content] = generatedPost.split('\n')
 
       if (detectLanguage(title) === 'english') {
         let translatedContent = await translateText(generatedPost)
 
         //  [title, ...content] = translatedContent.split('\n\n')
-        title = translatedContent.split('\n\n')[0]
-        content = translatedContent.split('\n\n').slice(1)
+        title = translatedContent.split('\n')[0]
+        content = translatedContent.split('\n').slice(1)
       }
 
       setGeneratedContent((prevState: any) => {
         return {
           ...prevState,
           title,
-          content: content.join('\n\n'),
+          content: content.join('\n'),
         }
       })
 
@@ -66,7 +66,7 @@ const ChatGptExample = () => {
       const newPostData = {
         id: newPostRef.id, // 생성된 ID를 데이터와 함께 저장합니다.
         title,
-        content: content.join('\n\n'),
+        content: content.join('\n'),
         createdAt: new Date().toISOString(),
       }
 
