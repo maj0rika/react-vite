@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { collection, doc, setDoc } from 'firebase/firestore'
 import { db } from '@/firebaseConfig'
 import InputText from '@/components/Input/Text'
