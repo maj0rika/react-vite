@@ -1,5 +1,5 @@
 import mainImg from '@/assets/images/main.png'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import useScrollFadeIn from '../hooks/useScrollFadeIn'
 
 const Main = () => {
@@ -10,10 +10,22 @@ const Main = () => {
     3: useScrollFadeIn('right', 2),
   }
 
+  const [test, setTest] = useState(0)
+
+  console.log(test)
+
   useEffect(() => {}, [])
 
   return (
     <div className="flex w-full flex-col justify-center gap-5  overflow-hidden">
+      {' '}
+      <button
+        onClick={() => setTest(test + 1)}
+        className="flex h-screen w-full items-center justify-center"
+      >
+        {test}
+        버튼
+      </button>
       {/* <img className="h-screen w-full" src={mainImg} alt="main" />
        */}
       {/* <p className="flex h-[calc(100vh-100px)] w-full items-center justify-center font-bold text-white">
