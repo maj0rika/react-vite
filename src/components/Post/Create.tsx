@@ -35,42 +35,37 @@ const StyledMessage = tw.p`
 `
 
 function PostCreate() {
-  const [title, setTitle] = useState('')
-  const [content, setContent] = useState('')
+  const [post, setPost] = useState({ title: '', content: '' })
+  const [result, setResult] = useState({ error: '', success: '' })
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
-  const [success, setSuccess] = useState('')
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
 
-    if (!title || !content) {
-      setError('제목과 내용을 입력해주세요.')
+    if (!post.title || !post.content) {
+      setResult({ ...result, error: '제목과 내용을 모두 입력해주세요.' })
       return
     }
 
     setLoading(true)
-    setError('')
-    setSuccess('')
+    setResult({ error: '', success: '' })
 
     const postsCollectionRef = collection(db, 'posts')
     const newPostRef = doc(postsCollectionRef)
 
     const newPostData = {
       id: newPostRef.id,
-      title,
-      content,
+      ...post,
       createdAt: new Date().toISOString(),
     }
 
     try {
       await setDoc(newPostRef, newPostData)
-      setSuccess('게시글이 성공적으로 작성되었습니다.')
-      setTitle('')
-      setContent('')
+      setResult({ ...result, success: '게시글이 작성되었습니다.' })
+      setPost({ title: '', content: '' })
     } catch (error) {
       console.error('Error creating new post:', error)
-      setError('게시글 작성에 실패했습니다.')
+      setResult({ ...result, error: '게시글 작성에 실패했습니다.' })
     } finally {
       setLoading(false)
     }
@@ -78,11 +73,12 @@ function PostCreate() {
 
   // 최적화: 필요한 핸들러 함수와 컴포넌트 프롭스 캐싱
   const handleTitleChange = useMemo(
-    () => (e: InputChangeEvent) => setTitle(e.target.value),
+    () => (e: InputChangeEvent) => setPost({ ...post, title: e.target.value }),
     [],
   )
   const handleContentChange = useMemo(
-    () => (e: InputChangeEvent) => setContent(e.target.value),
+    () => (e: InputChangeEvent) =>
+      setPost({ ...post, content: e.target.value }),
     [],
   )
 
@@ -92,7 +88,7 @@ function PostCreate() {
         제목
         <InputText
           className="w-full"
-          value={title}
+          value={post.title}
           onChange={handleTitleChange}
         />
       </label>
@@ -100,7 +96,7 @@ function PostCreate() {
         내용
         <InputTextarea
           className="w-full"
-          value={content}
+          value={post.content}
           onChange={handleContentChange}
         />
       </label>
@@ -108,9 +104,14 @@ function PostCreate() {
       {loading && (
         <StyledMessage className="text-blue-500">Loading...</StyledMessage>
       )}
-      {error && <StyledMessage className="text-red-500">{error}</StyledMessage>}
-      {success && (
-        <StyledMessage className="text-green-500">{success}</StyledMessage>
+
+      {result.error && (
+        <StyledMessage className="text-red-500">{result.error}</StyledMessage>
+      )}
+      {result.success && (
+        <StyledMessage className="text-green-500">
+          {result.success}
+        </StyledMessage>
       )}
     </StylePostCreate>
   )
