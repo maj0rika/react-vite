@@ -95,28 +95,6 @@ const ChatGptExample = () => {
     }
   }
 
-  // useEffect(() => {
-  //   if (generatedContent.title && generatedContent.content) {
-  //     uploadPost()
-  //   }
-  // }, [generatedContent])
-
-  // const uploadPost = async () => {
-  //   const newPostRef = doc(collection(db, 'posts')) // 고유한 ID가 자동으로 생성됩니다.
-  //   const newPostData = {
-  //     id: newPostRef.id, // 생성된 ID를 데이터와 함께 저장합니다.
-  //     title: generatedContent.title,
-  //     content: generatedContent.content,
-  //     createdAt: new Date().toISOString(),
-  //   }
-
-  //   try {
-  //     await setDoc(newPostRef, newPostData)
-  //   } catch (error) {
-  //     console.error('Error creating new post:', error)
-  //   }
-  // }
-
   const translateText = async (text: string) => {
     const requestBody = {
       text,
