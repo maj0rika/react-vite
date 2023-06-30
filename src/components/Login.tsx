@@ -26,6 +26,8 @@ const Login = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  useEffect(() => {
+  }, [])
   // TODO:debounce 적용 lodash
 
   const Loign = async () => {
