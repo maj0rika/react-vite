@@ -1,6 +1,8 @@
 import mainImg from '@/assets/images/main.png'
 import { useEffect } from 'react'
 import useScrollFadeIn from '../hooks/useScrollFadeIn'
+import Modal from './Modal'
+import { useModal } from '@/hooks/useModal'
 
 const Main = () => {
   const animatedItem = {
@@ -10,15 +12,17 @@ const Main = () => {
     3: useScrollFadeIn('right', 2),
   }
 
-  useEffect(() => {}, [])
+  const { isOpen, openModal, closeModal } = useModal()
 
   return (
     <div className="flex w-full flex-col justify-center gap-5  overflow-hidden">
-      {/* <img className="h-screen w-full" src={mainImg} alt="main" />
-       */}
-      {/* <p className="flex h-[calc(100vh-100px)] w-full items-center justify-center font-bold text-white">
-        스크롤 에니메이션 테스트 중! 아래로 스크롤 해보세요!
-      </p> */}
+      <div>
+        <button onClick={openModal}>모달 열기</button>
+        <Modal isOpen={isOpen} closeModal={closeModal}>
+          <h2>포탈 기능을 이용한 모달</h2>
+          <button onClick={closeModal}>모달 닫기</button>
+        </Modal>
+      </div>
       <div
         ref={animatedItem[0].ref}
         style={animatedItem[0].style}
