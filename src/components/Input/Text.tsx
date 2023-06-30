@@ -1,53 +1,63 @@
-import { ChangeEvent } from 'react'
+import { useEffect, useState } from 'react'
 import tw from 'tailwind-styled-components'
 
-export type InputValue = string | number | readonly string[] | undefined
-export type InputChangeEvent = ChangeEvent<
-  HTMLInputElement | HTMLTextAreaElement
->
-export type InputClassName = string
-export type Id = string
-export type validation = boolean
-export type type = 'text' | 'password'
-export type placeholder = string
+type InputValue = string | number | readonly string[] | undefined
+type InputType = 'text' | 'password'
+type ValidationType = boolean
 
 interface InputProps {
   value: InputValue
-  onChange: (e: InputChangeEvent) => void
-  className?: InputClassName
-  id?: Id
-  validation?: validation
-  type?: type
-  placeholder?: placeholder
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  className?: string
+  id?: string
+  validation?: ValidationType
+  type?: InputType
+  placeholder?: string
+  autocomplete?: string
 }
 
-const StyleInput = tw.input`
+const StyledInput = tw.input`
   border-2
   rounded-md
   p-2
   text-black
 `
 
-const InputText = ({
-  value,
+const InputText: React.FC<InputProps> = ({
   onChange,
   className,
   id,
   validation = true,
   type = 'text',
   placeholder,
-}: InputProps) => {
+  autocomplete,
+}) => {
+  const [localValue, setLocalValue] = useState<string>('')
+
+  useEffect(() => {
+    const debounceTimeout = setTimeout(() => {
+      onChange({
+        target: { value: localValue },
+      } as React.ChangeEvent<HTMLInputElement>)
+    }, 500)
+
+    return () => {
+      clearTimeout(debounceTimeout)
+    }
+  }, [localValue, onChange])
+
   return (
-    <StyleInput
+    <StyledInput
       type={type}
-      value={value}
-      onChange={onChange}
+      value={localValue}
+      onChange={e => setLocalValue(e.target.value)}
       placeholder={placeholder}
       className={[
         className,
-        value ? (validation ? 'border-purple-400' : 'border-red-500') : '',
+        localValue ? (validation ? 'border-purple-400' : 'border-red-500') : '',
       ].join(' ')}
       id={id}
+      autoComplete={autocomplete}
     />
   )
 }
