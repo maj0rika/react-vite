@@ -1,5 +1,4 @@
 import mainImg from '@/assets/images/main.png'
-import { useEffect } from 'react'
 import useScrollFadeIn from '../hooks/useScrollFadeIn'
 import Modal from './Modal'
 import { useModal } from '@/hooks/useModal'

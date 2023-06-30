@@ -1,9 +1,10 @@
-import { InputValue, InputChangeEvent } from './Text'
 import tw from 'tailwind-styled-components'
+
+type InputValue = string | number | readonly string[] | undefined
 
 interface TextareaProps {
   value: InputValue
-  onChange: (e: InputChangeEvent) => void
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
   className?: string
 }
 

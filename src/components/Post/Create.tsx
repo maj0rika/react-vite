@@ -4,7 +4,6 @@ import { db } from '@/firebaseConfig'
 import { collection, doc, setDoc } from 'firebase/firestore'
 import InputText from '@/components/Input/Text'
 import InputTextarea from '@/components/Input/Textarea'
-import { InputChangeEvent } from '@/components/Input/Text'
 
 const StylePostCreate = tw.form`
   flex
@@ -74,12 +73,12 @@ function PostCreate() {
 
   // 최적화: 필요한 핸들러 함수와 컴포넌트 프롭스 캐싱
   const handleTitleChange = useMemo(
-    () => (e: InputChangeEvent) =>
+    () => (e: React.ChangeEvent<HTMLInputElement>) =>
       setPost(prev => ({ ...prev, title: e.target.value })),
     [],
   )
   const handleContentChange = useMemo(
-    () => (e: InputChangeEvent) =>
+    () => (e: React.ChangeEvent<HTMLTextAreaElement>) =>
       setPost(prev => ({ ...prev, content: e.target.value })),
     [],
   )
