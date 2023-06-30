@@ -61,11 +61,12 @@ function PostCreate() {
 
     try {
       await setDoc(newPostRef, newPostData)
-      setResult({ ...result, success: '게시글이 작성되었습니다.' })
+
+      setResult(prev => ({ ...prev, success: '게시글이 작성되었습니다.' }))
       setPost({ title: '', content: '' })
     } catch (error) {
       console.error('Error creating new post:', error)
-      setResult({ ...result, error: '게시글 작성에 실패했습니다.' })
+      setResult(prev => ({ ...prev, error: '게시글 작성에 실패했습니다.' }))
     } finally {
       setLoading(false)
     }
@@ -73,12 +74,13 @@ function PostCreate() {
 
   // 최적화: 필요한 핸들러 함수와 컴포넌트 프롭스 캐싱
   const handleTitleChange = useMemo(
-    () => (e: InputChangeEvent) => setPost({ ...post, title: e.target.value }),
+    () => (e: InputChangeEvent) =>
+      setPost(prev => ({ ...prev, title: e.target.value })),
     [],
   )
   const handleContentChange = useMemo(
     () => (e: InputChangeEvent) =>
-      setPost({ ...post, content: e.target.value }),
+      setPost(prev => ({ ...prev, content: e.target.value })),
     [],
   )
 
