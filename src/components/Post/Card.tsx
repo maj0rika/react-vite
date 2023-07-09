@@ -119,7 +119,7 @@ function Post({
           (isExpanded ? (
             editedContent.split('\n').map(line => {
               return (
-                <span>
+                <span key={line}>
                   {line}
                   <br />
                 </span>
