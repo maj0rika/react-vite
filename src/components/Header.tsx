@@ -69,14 +69,6 @@ const Header = () => {
             >
               로그아웃
             </StyledLink>
-
-            <StyledLink to="/post" className={getLinkClassName('/post')}>
-              게시판
-            </StyledLink>
-
-            <StyledLink to="/gpt" className={getLinkClassName('/gpt')}>
-              Gpt글쓰기
-            </StyledLink>
           </>
         ) : (
           <>
@@ -89,6 +81,12 @@ const Header = () => {
             </Link>
           </>
         )}
+        <StyledLink to="/post" className={getLinkClassName('/post')}>
+          게시판
+        </StyledLink>
+        <StyledLink to="/gpt" className={getLinkClassName('/gpt')}>
+          Gpt글쓰기
+        </StyledLink>
       </StyledMenu>
     </StyledHeader>
   )
