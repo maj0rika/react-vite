@@ -39,7 +39,7 @@ const InputText: React.FC<InputProps> = ({
       onChange({
         target: { value: localValue },
       } as React.ChangeEvent<HTMLInputElement>)
-    }, 500)
+    }, 100)
 
     return () => {
       clearTimeout(debounceTimeout)
