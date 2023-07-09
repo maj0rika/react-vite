@@ -39,7 +39,7 @@ const Signup = () => {
         alert('회원가입이 완료되었습니다.')
         navigate('/login')
       })
-      .catch(error => {
+      .catch(() => {
         alert('회원가입에 실패하였습니다.')
       })
   }
