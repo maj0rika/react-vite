@@ -41,9 +41,9 @@ export default function Router() {
     {
       path: '/gpt',
       element: (
-        <PrivateUser>
-          <Gpt />
-        </PrivateUser>
+        // <PrivateUser>
+        <Gpt />
+        // </PrivateUser>
       ),
     },
     {
