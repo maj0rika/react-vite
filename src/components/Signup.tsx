@@ -5,6 +5,7 @@ import { auth } from '@/firebaseConfig'
 import { useState } from 'react'
 import Button from './Button'
 import { emailvalidate, passwordvalidate } from '@/validate'
+import { useNavigate } from 'react-router-dom'
 
 const StyledMain = tw.main`
 card-container
@@ -14,6 +15,8 @@ const Signup = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [passwordcheck, setPasswordcheck] = useState('')
+
+  const navigate = useNavigate()
 
   const signup = async () => {
     if (!emailvalidate(email)) {
@@ -31,10 +34,14 @@ const Signup = () => {
       return
     }
 
-    await register(email, password).then(() => {
-      alert('회원가입이 완료되었습니다.')
-      window.location.href = '/login'
-    })
+    await register(email, password)
+      .then(() => {
+        alert('회원가입이 완료되었습니다.')
+        navigate('/login')
+      })
+      .catch(error => {
+        alert('회원가입에 실패하였습니다.')
+      })
   }
 
   const register = async (email: string, password: string) => {
@@ -44,9 +51,13 @@ const Signup = () => {
         email,
         password,
       )
+
       const user = userCredential.user
       return user
-    } catch (error) {}
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
   }
 
   return (
@@ -78,6 +89,7 @@ const Signup = () => {
           onChange={e => {
             setPassword(e.target.value)
           }}
+          type="password"
           id="password"
           validation={passwordvalidate(password)}
         />
@@ -93,6 +105,7 @@ const Signup = () => {
           onChange={e => {
             setPasswordcheck(e.target.value)
           }}
+          type="password"
           id="password"
           validation={passwordvalidate(passwordcheck)}
         />
