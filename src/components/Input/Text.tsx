@@ -44,8 +44,7 @@ const InputText: React.FC<InputProps> = ({
     return () => {
       clearTimeout(debounceTimeout)
     }
-  }, [localValue, onChange])
-
+  }, [localValue])
   return (
     <StyledInput
       type={type}
