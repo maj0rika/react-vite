@@ -61,16 +61,18 @@ const Modal = ({
     }
   }, [])
 
+  const handleModalClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      e.stopPropagation()
+      closeModal()
+    }
+  }
+
   const renderModal = () => {
     return (
       <StyledModal
         className={isOpen ? 'pointer-events-auto visible opacity-100' : ''}
-        onClick={e => {
-          if (e.target === e.currentTarget) {
-            e.stopPropagation()
-            closeModal()
-          }
-        }}
+        onClick={handleModalClick}
       >
         <StyledModalContent>{children}</StyledModalContent>
       </StyledModal>
