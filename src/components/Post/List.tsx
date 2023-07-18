@@ -21,6 +21,7 @@ function PostList({ children }: PostListProps) {
       <PostCreate />
       {children}
     </StyledPostList>
+    // TODO: 무한스크롤 적용
   )
 }
 
