@@ -22,6 +22,7 @@ const checkUser = async () => {
     return myInfo
   } else {
     return new Promise<IMyInfo | undefined>((resolve, reject) => {
+      //onAuthStateChanged가 promise를 반환하지 않아서 promise로 감싸줌
       onAuthStateChanged(
         auth,
         user => {
